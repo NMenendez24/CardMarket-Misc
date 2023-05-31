@@ -12,7 +12,6 @@ services:
       - DB_USER=root
       - DB_PASSWORD=root
       - DB_NAME=cardmarket
-      - MYSQL_ROOT_PASSWORD=root
     links:
       - db
     tty: true
@@ -25,7 +24,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=cardmarket
-      - MYSQL_USER=root
       - MYSQL_PASSWORD=root
     volumes:
       - cardmarket:/var/lib/mysql
