@@ -2,17 +2,19 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
+    types:
+      - closed
 
 jobs:
-
   build:
-
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: sudo docker-compose up -d --build --force-recreate
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build the Docker image
+        run: sudo docker-compose up -d --build --force-recreate
