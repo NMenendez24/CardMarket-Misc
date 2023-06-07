@@ -3,8 +3,7 @@ FROM node:18-alpine3.16
 # RUN mkdir -p /home/hola
 COPY . /backend
 WORKDIR /backend
-RUN mkdir sopa
-#COPY package*.json ./
-#RUN npm install
+RUN npm install
+RUN node index.js
 
 EXPOSE 3000
