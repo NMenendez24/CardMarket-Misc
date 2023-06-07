@@ -3,11 +3,11 @@ const axios = require('axios');
 async function testCRUDOperations() {
   try {
     // Obtener todos los usuarios
-    const getUsersResponse = await axios.get('http://db:3306/users');
+    const getUsersResponse = await axios.get('http://172.18.0.2:3306/users');
     console.log('Usuarios obtenidos:', getUsersResponse.data);
 
     // Crear un nuevo usuario
-    const createUserResponse = await axios.post('http://db:3306/users', {
+    const createUserResponse = await axios.post('http://172.18.0.2:3306/users', {
       nickname: 'Santiago',
       email: 'santiagovidarte@gmail.com',
       contact: '095209728'
@@ -17,11 +17,11 @@ async function testCRUDOperations() {
 
     // Obtener un usuario por su ID
     const userId = newUser.id;
-    const getUserResponse = await axios.get(`http://db:3306/${userId}`);
+    const getUserResponse = await axios.get(`http://172.18.0.2:3306/${userId}`);
     console.log('Usuario obtenido por ID:', getUserResponse.data);
 
     // Actualizar un usuario
-    const updateUserResponse = await axios.put(`http://db:3306/users/${userId}`, {
+    const updateUserResponse = await axios.put(`http://172.18.0.2:3306/users/${userId}`, {
       nickname: 'YanoesSanti',
       email: 'noesantiagovidarte@gmail.com',
       contact: '095095095095'
@@ -30,7 +30,7 @@ async function testCRUDOperations() {
     console.log('Usuario actualizado:', updatedUser); 
 
     // Eliminar un usuario
-    const deleteUserResponse = await axios.delete(`http://db:3306/users/${userId}`);
+    const deleteUserResponse = await axios.delete(`http://172.18.0.2:3306/users/${userId}`);
     console.log('Usuario eliminado:', deleteUserResponse.data);
   } catch (error) {
     console.error('Error en las operaciones CRUD:', error.response.data);
