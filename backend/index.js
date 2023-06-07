@@ -13,7 +13,7 @@ const Set = require('./models/Set');
 const userRoutes = require('./routes/userRoutes');
 
 const app = express();
-const port = 3306;
+const port = 3000;
 
 // Middleware
 app.use(bodyParser.json());
