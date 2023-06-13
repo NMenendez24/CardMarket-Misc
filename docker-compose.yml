@@ -4,14 +4,13 @@ services:
   db:
     build: ./db
     container_name: db
-    ports:
-      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=cardmarket
       - MYSQL_PASSWORD=root
     volumes:
       - cardmarket:/var/lib/mysql
+    restart: always
     tty: true
 #-------------------------------------------------------------------------#
   backend:
