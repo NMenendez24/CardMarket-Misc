@@ -32,6 +32,7 @@ jobs:
         run: | 
           echo "Here will be the integration tests"
           sudo apt update
+          sudo apt upgrade
           sudo apt install -y docker.io
           sudo apt install -y docker-compose
           cd backend
