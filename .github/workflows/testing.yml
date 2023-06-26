@@ -31,6 +31,7 @@ jobs:
       - name: Test the code
         run: | 
           echo "Here will be the integration tests"
+          sudo aot update
           sudo apt install -y docker.io
           sudo apt install -y docker-compose
           cd backend
