@@ -35,5 +35,6 @@ jobs:
           sudo apt upgrade
           sudo apt install -y docker.io
           sudo apt install -y docker-compose
+          sudo apt --fix-broken install
           cd backend
           sudo docker-compose up -d --build --force-recreate
