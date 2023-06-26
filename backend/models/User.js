@@ -1,11 +1,15 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../database/connection');
+const { DataTypes } = require("sequelize");
+const bcrypt = require("bcrypt");
+const sequelize = require("../database/connection");
 
-const User = sequelize.define('User', {
+const User = sequelize.define("User", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+  },
+  profilePic: {
+    type: DataTypes.STRING, // DataTypes.TEXT si es una URL
   },
   nickname: {
     type: DataTypes.STRING,
@@ -17,19 +21,26 @@ const User = sequelize.define('User', {
     unique: true,
     allowNull: false,
   },
-  contact: {
+  password: {
     type: DataTypes.STRING,
-  },
-  created_at: {
-    type: DataTypes.DATE,
     allowNull: false,
   },
-  password_hash: {
+  contact: {
     type: DataTypes.STRING,
-  },
-  locked_out: {
-    type: DataTypes.BOOLEAN,
+    allowNull: false,
   },
 });
+
+User.beforeCreate(async (user) => {
+  if (user.changed("password")) {
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(user.password, salt);
+    user.password = hash;
+  }
+});
+
+User.prototype.comparePassword = function (candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
 
 module.exports = User;

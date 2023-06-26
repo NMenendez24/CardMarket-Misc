@@ -1,0 +1,37 @@
+name: Docker Image CI
+
+on:
+  push:
+    
+#-------------------------------------------------------#
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    env:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cardmarket
+      MYSQL_PASSWORD: root
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up environment variables
+        run: |
+          cd backend
+          echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" >> .env
+          echo "MYSQL_DATABASE=${MYSQL_DATABASE}" >> .env
+          echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> .env
+          echo "DB_HOST=${MYSQL_HOST}" >> .env
+          echo "DB_PORT=${MYSQL_PORT}" >> .env
+          echo "DB_USER=${MYSQL_USER}" >> .env
+
+      - name: Test the code
+        run: | 
+          echo "Here will be the integration tests"
+          sudo apt install -y docker.io
+          sudo apt install -y docker-compose
+          cd backend
+          sudo docker-compose up -d --build --force-recreate

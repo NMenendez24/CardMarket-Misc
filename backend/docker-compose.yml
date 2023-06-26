@@ -2,28 +2,30 @@ version: "3.8"
 
 services:
   db:
-    build: ./db
+    image: mysql:8.0
     container_name: db
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=cardmarket
-      - MYSQL_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - cardmarket:/var/lib/mysql
+    ports:
+      - 3306:3306
     restart: always
     tty: true
 #-------------------------------------------------------------------------#
   backend:
-    build: ./backend
+    build: ./
     container_name: backend
     ports:
       - 3000:3000
     environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_USER=root
-      - DB_PASSWORD=root
-      - DB_NAME=cardmarket
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - DB_NAME=${MYSQL_DATABASE}
     links:
       - db
     depends_on:
